@@ -1,12 +1,11 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const userRoutes = require('./routes/user');
 
 const Sauce = require('./models/Sauce');
 
-mongoose.connect('mongodb+srv://Rengodz:<password>@cluster0.s2oop.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://Rengodz:tFJTScQwZvpIQkMl@cluster0.s2oop.mongodb.net/Cluster0?retryWrites=true&w=majority', {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
