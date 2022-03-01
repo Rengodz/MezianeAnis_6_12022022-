@@ -2,7 +2,7 @@ const Sauce = require('../models/Sauce');
 
 exports.createSauce = (req, res, next) => {
     const sauce = new Sauce({
-        title: req.body.title,
+        name: req.body.name,
         description: req.body.description,
         imageUrl: req.body.imageUrl,
         userId: req.body.userId
