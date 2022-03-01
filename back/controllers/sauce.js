@@ -5,7 +5,11 @@ exports.createSauce = (req, res, next) => {
         name: req.body.name,
         description: req.body.description,
         imageUrl: req.body.imageUrl,
-        userId: req.body.userId
+        userId: req.body.userId,
+        manufacturer: req.body.manufacturer,
+        mainPepper: req.body.mainPepper,
+        imageUrl: req.body.imageUrl,
+        heat: req.body.heat,
     });
     sauce.save().then(
         () => {
@@ -40,7 +44,7 @@ exports.getOneSauce = (req, res, next) => {
 exports.modifySauce = (req, res, next) => {
     const sauce = new Sauce({
         _id: req.params.id,
-        title: req.body.title,
+        name: req.body.name,
         description: req.body.description,
         imageUrl: req.body.imageUrl,
         userId: req.body.userId
