@@ -25,7 +25,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/api/sauce', sauceRoutes);
+app.use('/api/sauces', sauceRoutes);
 
 app.use('/api/auth', userRoutes);
 

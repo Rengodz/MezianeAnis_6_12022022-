@@ -92,4 +92,51 @@ exports.getAllSauce = (req, res, next) => {
             });
         }
     );
-};
+}; // like fonction
+exports.fctLike = (req, res, next) => {
+    let userId = req.body.userId;
+    let sauceId = req.params.id;
+    let like = req.body.like;
+
+    //  us ID on 'usersLiked' and 'likes'
+    if (like === 1) {
+        Sauce.updateOne({ _id: sauceId }, {
+                $push: { usersLiked: userId },
+                $inc: { likes: +1 },
+            })
+            .then(() =>
+                res.status(200).json({ message: "L'utilisateur like la sauce" })
+            )
+            .catch((error) => res.status(400).json({ error }));
+        //  dislike 
+    } else if (like === -1) {
+        Sauce.updateOne({ _id: sauceId }, {
+                $push: { usersDisliked: userId },
+                $inc: { dislikes: +1 },
+            })
+            .then(() =>
+                res.status(200).json({ message: "L'utilisateur dislike la sauce" })
+            )
+            .catch((error) => res.status(400).json({ error }));
+        //  update like/dislike with include
+    } else if (like === 0) {
+        Sauce.findOne({ _id: sauceId })
+            .then((sauce) => {
+                if (sauce.usersLiked.includes(userId)) {
+                    Sauce.updateOne({ _id: sauceId }, { $pull: { usersLiked: userId }, $inc: { likes: -1 } })
+                        .then(() =>
+                            res.status(200).json({ message: "L'utilisateur a retiré son like" })
+                        )
+                        .catch((error) => res.status(400).json({ error }));
+                }
+                if (sauce.usersDisliked.includes(userId)) {
+                    Sauce.updateOne({ _id: sauceId }, { $pull: { usersDisliked: userId }, $inc: { dislikes: -1 } })
+                        .then(() =>
+                            res.status(200).json({ message: "L'utilisateur a retiré son dislike" })
+                        )
+                        .catch((error) => res.status(400).json({ error }));
+                }
+            })
+            .catch((error) => res.status(400).json({ error }));
+    }
+}
