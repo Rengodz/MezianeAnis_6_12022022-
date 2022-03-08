@@ -1,30 +1,22 @@
 const Sauce = require('../models/Sauce');
+const User = require('../models/User');
 
 exports.createSauce = (req, res, next) => {
+    const sauceObject = JSON.parse(req.body.sauce);
+    delete sauceObject._id;
     const sauce = new Sauce({
-        name: req.body.name,
-        description: req.body.description,
-        imageUrl: req.body.imageUrl,
-        userId: req.body.userId,
-        manufacturer: req.body.manufacturer,
-        mainPepper: req.body.mainPepper,
-        imageUrl: req.body.imageUrl,
-        heat: req.body.heat,
+        ...sauceObject,
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        likes: 0,
+        dislikes: 0,
+        usersLiked: [''],
+        usersdisLiked: ['']
     });
-    sauce.save().then(
-        () => {
-            res.status(201).json({
-                message: 'Post saved successfully!'
-            });
-        }
-    ).catch(
-        (error) => {
-            res.status(400).json({
-                error: error
-            });
-        }
-    );
+    sauce.save()
+        .then(() => res.status(201).json({ message: "Sauce enregistrée" }))
+        .catch((error) => res.status(400).json({ error }));
 };
+
 exports.getOneSauce = (req, res, next) => {
     Sauce.findOne({
         _id: req.params.id
