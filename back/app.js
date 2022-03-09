@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
-
+const path = require('path');
+require('dotenv').config({ path: './config/.env' });
+require('./config/db');
 const userRoutes = require('./routes/user');
 
 const Sauce = require('./models/Sauce');
@@ -17,6 +19,7 @@ mongoose.connect('mongodb+srv://Rengodz:tFJTScQwZvpIQkMl@cluster0.s2oop.mongodb.
 const app = express();
 
 app.use(express.json());
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
