@@ -75,7 +75,7 @@ exports.deleteSauce = (req, res, next) => {
 exports.getAllSauce = (req, res, next) => {
     console.log("appel");
     Sauce.find().then(
-        (sauces) => {
+        (sauce) => {
             res.status(200).json(sauce);
         }
     ).catch(

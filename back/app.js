@@ -1,8 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-require('dotenv').config({ path: './config/.env' });
-require('./config/db');
 const userRoutes = require('./routes/user');
 
 const Sauce = require('./models/Sauce');
