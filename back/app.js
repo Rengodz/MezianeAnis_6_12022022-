@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+var mongodbErrorHandler = require('mongoose-mongodb-errors');
 const path = require('path');
 const userRoutes = require('./routes/user');
 
