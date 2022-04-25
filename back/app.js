@@ -1,7 +1,11 @@
 const express = require('express');
 require('dotenv').config({ path: './config/.env' });
 const mongoose = require('mongoose');
+
+//error plugin mongodb
 var mongodbErrorHandler = require('mongoose-mongodb-errors');
+mongoose.plugin(mongodbErrorHandler);
+
 const path = require('path');
 const userRoutes = require('./routes/user');
 

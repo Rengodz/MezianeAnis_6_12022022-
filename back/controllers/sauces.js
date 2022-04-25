@@ -91,13 +91,12 @@ exports.likeSauce = (req, res, next) => {
     let like = req.body.like;
 
     //  us ID on 'usersLiked' and 'likes'
-    if (sauce.usersLiked.includes(userId)) {
-        Sauce.updateOne({ _id: sauceId }, { $pull: { usersLiked: userId }, $inc: { likes: -1 } })
-            .then(() =>
-                res.status(200).json({ message: "L'utilisateur a retiré son like" })
-            )
-            .catch((error) => res.status(400).json({ message: "Error occured when updating the sauce : " + error }));
-    }
+    Sauce.updateOne({ _id: sauceId }, { $pull: { usersLiked: userId }, $inc: { likes: -1 } })
+        .then(() =>
+            res.status(200).json({ message: "L'utilisateur a retiré son like" })
+        )
+        .catch((error) => res.status(400).json({ message: "Error occured when updating the sauce : " + error }));
+
 
     if (like === 1) {
         Sauce.updateOne({ _id: sauceId }, {
