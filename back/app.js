@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config({ path: './config/.env' });
 const mongoose = require('mongoose');
 var mongodbErrorHandler = require('mongoose-mongodb-errors');
 const path = require('path');
@@ -8,7 +9,7 @@ const Sauce = require('./models/Sauce');
 
 const sauceRoutes = require('./routes/sauce');
 
-mongoose.connect('mongodb+srv://Rengodz:tFJTScQwZvpIQkMl@cluster0.s2oop.mongodb.net/Cluster0?retryWrites=true&w=majority', {
+mongoose.connect(process.env.DB_CONFIG, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
